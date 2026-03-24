@@ -69,9 +69,9 @@ const Home = () => {
               </button>
             </div>
 
-            {/* Quick select buttons */}
+            {/* Quick select buttons - Show only top 5 popular ones */}
             <div className="flex flex-wrap gap-3 mt-5 justify-center">
-              {locations.map(loc => (
+              {locations.slice(0, 5).map(loc => (
                 <button
                   key={loc}
                   onClick={() => { setSelectedLocation(loc); setSearched(true); }}

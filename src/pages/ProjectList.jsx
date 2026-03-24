@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { properties } from '../data/properties';
 import PropertyCard from '../components/PropertyCard';
-import { Search, Filter, MapPin, IndianRupee } from 'lucide-react';
+import { Search, Filter, MapPin, IndianRupee, ChevronDown } from 'lucide-react';
 
 const ProjectList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,16 +37,18 @@ const ProjectList = () => {
             />
           </div>
           <div className="flex items-center gap-4">
-            <div className="flex bg-white-5 p-1 rounded-xl border-white-10">
-              {locations.map(loc => (
-                <button
-                  key={loc}
-                  onClick={() => setLocationFilter(loc)}
-                  className={`px-6 py-2 rounded-xl text-xs font-bold transition-all ${locationFilter === loc ? 'bg-primary text-black' : 'text-gray-400'}`}
-                >
-                  {loc.toUpperCase()}
-                </button>
-              ))}
+            <div className="relative">
+              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={18} />
+              <select
+                value={locationFilter}
+                onChange={(e) => setLocationFilter(e.target.value)}
+                className="bg-white-5 border border-white-10 rounded-xl py-3 pl-12 pr-10 text-white outline-none appearance-none font-bold text-xs uppercase"
+              >
+                {locations.map(loc => (
+                  <option key={loc} value={loc} className="bg-[#0f0f0f]">{loc.toUpperCase()}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={14} />
             </div>
           </div>
         </div>
