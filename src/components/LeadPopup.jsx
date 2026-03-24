@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Phone, User, MapPin, MessageCircle } from 'lucide-react';
+import { properties } from '../data/properties';
 
 const LeadPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -115,9 +116,9 @@ const LeadPopup = () => {
                     className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:border-[#c5a059] transition-colors text-white appearance-none"
                   >
                     <option value="">Select Location (Optional)</option>
-                    <option>Dombivli</option>
-                    <option>Kalyan</option>
-                    <option>Thakurli</option>
+                    {[...new Set(properties.map(p => p.location))].map(loc => (
+                      <option key={loc} value={loc}>{loc}</option>
+                    ))}
                   </select>
                 </div>
 

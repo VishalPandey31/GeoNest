@@ -7,7 +7,7 @@ const ProjectList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [locationFilter, setLocationFilter] = useState('All');
 
-  const locations = ['All', 'Dombivli', 'Kalyan', 'Thakurli'];
+  const locations = ['All', ...new Set(properties.map(p => p.location))];
 
   const filteredProperties = properties.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
