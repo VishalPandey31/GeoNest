@@ -70,6 +70,12 @@ function generateProperties(stats) {
             description: `Experience luxury living in ${loc}. ${prefix} ${suffix} offers premium residences with world-class facilities.`,
             amenities: mockAmenities[Math.floor(Math.random() * mockAmenities.length)],
             highlight: Math.random() > 0.7 ? "New Launch" : "Ready to Move",
+            images: [
+              mockImages[Math.floor(Math.random() * mockImages.length)],
+              mockImages[Math.floor(Math.random() * mockImages.length)],
+              mockImages[Math.floor(Math.random() * mockImages.length)],
+              mockImages[Math.floor(Math.random() * mockImages.length)]
+            ],
             image: mockImages[Math.floor(Math.random() * mockImages.length)]
         });
     }

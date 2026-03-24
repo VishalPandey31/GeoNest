@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { properties } from '../data/properties';
 import { MapPin, IndianRupee, Layout, CheckCircle2, ChevronRight, Share2, Heart, MessageCircle } from 'lucide-react';
@@ -7,6 +7,7 @@ import EmiCalculator from '../components/EmiCalculator';
 const ProjectDetails = () => {
   const { id } = useParams();
   const property = properties.find(p => p.id === parseInt(id));
+  const [activeImage, setActiveImage] = useState(0);
 
   if (!property) return <div className="pt-40 text-center text-white">Project not found</div>;
 
@@ -24,16 +25,62 @@ const ProjectDetails = () => {
         <div className="flex flex-col md:flex-row gap-12">
           {/* Main Content */}
           <div className="flex-grow lg:w-2/3">
-            <div className="relative rounded-xl overflow-hidden mb-8 shadow-2xl">
-              <img src={property.image} alt={property.name} className="w-full h-[500px] object-cover" />
-              <div className="absolute top-6 right-6 flex gap-3">
-                <button className="w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-primary transition-all">
-                  <Share2 size={18} />
-                </button>
-                <button className="w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-primary transition-all">
-                  <Heart size={18} />
-                </button>
+            {/* Image Gallery */}
+            <div className="mb-8 group">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl mb-4 h-[500px] border border-white/5">
+                <img 
+                  src={property.images ? property.images[activeImage] : property.image} 
+                  alt={property.name} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                />
+                
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                <div className="absolute top-6 right-6 flex gap-3">
+                  <button className="w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-primary transition-all">
+                    <Share2 size={18} />
+                  </button>
+                  <button className="w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-primary transition-all">
+                    <Heart size={18} />
+                  </button>
+                </div>
+
+                {/* Navigation Arrows */}
+                {property.images && (
+                  <>
+                    <button 
+                      onClick={() => setActiveImage(prev => (prev === 0 ? property.images.length - 1 : prev - 1))}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-primary"
+                    >
+                      <ChevronRight size={24} className="rotate-180" />
+                    </button>
+                    <button 
+                      onClick={() => setActiveImage(prev => (prev === property.images.length - 1 ? 0 : prev + 1))}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-primary"
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+                  </>
+                )}
               </div>
+
+              {/* Thumbnails */}
+              {property.images && (
+                <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                  {property.images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImage(idx)}
+                      className={`relative flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden border-2 transition-all ${
+                        activeImage === idx ? 'border-primary ring-4 ring-primary/20' : 'border-transparent opacity-50 hover:opacity-100'
+                      }`}
+                    >
+                      <img src={img} className="w-full h-full object-cover" alt="thumbnail" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="mb-10">
