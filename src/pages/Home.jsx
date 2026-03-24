@@ -7,7 +7,7 @@ const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState('');
   const [searched, setSearched] = useState(false);
 
-  const locations = ['Dombivli', 'Kalyan', 'Thakurli'];
+  const locations = [...new Set(properties.map(p => p.location))];
 
   const handleSearch = () => {
     if (selectedLocation) setSearched(true);

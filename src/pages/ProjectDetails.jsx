@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { properties } from '../data/properties';
 import { MapPin, IndianRupee, Layout, CheckCircle2, ChevronRight, Share2, Heart, MessageCircle } from 'lucide-react';
+import EmiCalculator from '../components/EmiCalculator';
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -89,6 +90,10 @@ const ProjectDetails = () => {
                 ))}
               </div>
             </div>
+
+            {/* EMI Calculator */}
+            <h3 className="text-white text-xl font-bold mb-6 mt-10">Plan Your Finances</h3>
+            <EmiCalculator propertyPriceStr={property.price} />
           </div>
 
           {/* Sidebar Enquiry Form */}

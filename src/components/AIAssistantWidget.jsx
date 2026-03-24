@@ -3,8 +3,8 @@ import { Bot, X, Send, User, Sparkles, Loader2, Home } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { properties } from '../data/properties';
 
-// Replace with your actual Gemini API Key
-const GEMINI_API_KEY = "AIzaSyB2UhttIiXy5huN3QSUCvsyqputKTl-Png";
+// Read from environment variables securely
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "YOUR_GEMINI_API_KEY_HERE";
 
 const AIAssistantWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
